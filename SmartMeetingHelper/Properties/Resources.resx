@@ -112,9 +112,67 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="cv110" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ResourceLibs\cv110.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cvaux110" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ResourceLibs\cvaux110.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cvextern" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ResourceLibs\cvextern.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cxcore110" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ResourceLibs\cxcore110.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="haarcascade_frontalface_default" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ResourceLibs\haarcascade_frontalface_default.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="highgui110" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ResourceLibs\highgui110.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="opencv_calib3d220" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ResourceLibs\opencv_calib3d220.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="opencv_contrib220" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ResourceLibs\opencv_contrib220.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="opencv_core220" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ResourceLibs\opencv_core220.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="opencv_features2d220" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ResourceLibs\opencv_features2d220.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="opencv_ffmpeg220" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ResourceLibs\opencv_ffmpeg220.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="opencv_flann220" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ResourceLibs\opencv_flann220.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="opencv_gpu220" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ResourceLibs\opencv_gpu220.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="opencv_highgui220" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ResourceLibs\opencv_highgui220.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="opencv_imgproc220" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ResourceLibs\opencv_imgproc220.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="opencv_legacy220" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ResourceLibs\opencv_legacy220.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="opencv_ml220" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ResourceLibs\opencv_ml220.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="opencv_objdetect220" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ResourceLibs\opencv_objdetect220.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="opencv_video220" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ResourceLibs\opencv_video220.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>
