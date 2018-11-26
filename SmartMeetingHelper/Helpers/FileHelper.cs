@@ -22,12 +22,13 @@ namespace SmartMeetingHelper
             TryWriteByteFile("opencv_ml220.dll", Resources.opencv_ml220);
             TryWriteByteFile("opencv_objdetect220.dll", Resources.opencv_objdetect220);
             TryWriteByteFile("opencv_video220.dll", Resources.opencv_video220);
-            TryWriteStringFile("haarcascade_frontalface_default.xml", Resources.haarcascade_frontalface_default);
             TryWriteByteFile("cv110.dll", Resources.cv110);
             TryWriteByteFile("cvaux110.dll", Resources.cvaux110);
             TryWriteByteFile("cvextern.dll", Resources.cvextern);
             TryWriteByteFile("cxcore110.dll", Resources.cxcore110);
             TryWriteByteFile("highgui110.dll", Resources.highgui110);
+            TryWriteByteFile("opencv_calib3d220.dll", Resources.opencv_calib3d220);
+            TryWriteStringFile("haarcascade_frontalface_default.xml", Resources.haarcascade_frontalface_default);
         }
 
         private void TryWriteByteFile(string name,byte[] resource)

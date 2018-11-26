@@ -26,9 +26,20 @@ namespace SmartMeetingHelper
         public string name, names = null;
         private readonly FileHelper _fileHelper = new FileHelper();
         private readonly SqlHelper _sqlHelper = new SqlHelper();
-        
+        public delegate void TextDelegate(string message);
+        public delegate void imageBoxFrameDelegate(Image<Bgr, Byte> image);
+        public event TextDelegate Label3TextEvent;
+        public event TextDelegate Label4TextEvent;
+        public event imageBoxFrameDelegate imageBoxFrameEvent;
+        public FaceRecognition FaceRecognition;
+
+
+
+
+
         public void InitParams()
         {
+            FaceRecognition = new FaceRecognition(this);
             var user = new UserModel
             {
                 Id = "dfs",
@@ -38,7 +49,7 @@ namespace SmartMeetingHelper
                 LastVisit = "21.23.55"
             };
             _fileHelper.CreateFolderTrainedFaces();
-            _fileHelper.copyFiles();
+            //_fileHelper.copyFiles();
             _sqlHelper.CreateBase();
             _sqlHelper.AddUserToDb(user);
             var us = _sqlHelper.FoundInDbModel("dfs");
@@ -70,6 +81,7 @@ namespace SmartMeetingHelper
             }
         }
 
+
         public string ConnectUser()
         {
             var graphClient = AuthenticationHelper.GetAuthenticatedClient();
@@ -81,8 +93,19 @@ namespace SmartMeetingHelper
 
         }
 
+        public void UpdateLable3(string text)
+        {
+            Label3TextEvent.Invoke(text);
+        }
+        public void UpdateLable4(string text)
+        {
+            Label4TextEvent.Invoke(text);
+        }
 
-
+        public void UpdateimageBoxFrame(Image<Bgr, Byte> image)
+        {
+            imageBoxFrameEvent.Invoke(image);
+        }
 
     }
 }

@@ -120,6 +120,7 @@
     <Compile Include="Helpers\SqlHelper.cs" />
     <Compile Include="Logic\AuthenticationHelper.cs" />
     <Compile Include="Logic\CalendarHelper.cs" />
+    <Compile Include="Logic\FaceRecognition.cs" />
     <Compile Include="MainController.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
