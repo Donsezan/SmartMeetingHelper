@@ -21,8 +21,12 @@ namespace SmartMeetingHelper
         public event TextDelegate RecognizedNameLabelEvent;
         public event ImageBgrBoxFrameDelegate ImageBoxFrameEvent;
         public event ImageGrayBoxFrameDelegate TrainedImageBoxEvent;
+        public event TextDelegate RecognizedEmeilLabelEvent;
+        public event TextDelegate RecognizedlastVisitLabelEvent;
+        public event Action GetEmeilFromEmeilTextBoxEvent;
         public event Action GetNameFromTextBoxEvent;
-        public string CurrentName;
+        public string CurrentUserName;
+        public string CurrentUserEmeil;
         public List<UserModel> UserModelsList = new List<UserModel>();
 
         public void InitParams()
@@ -80,11 +84,29 @@ namespace SmartMeetingHelper
         public string GetNameFromTextBox()
         {
             GetNameFromTextBoxEvent?.Invoke();
-            return CurrentName;
+            return CurrentUserName;
         }
+
+        public string GetEmeilFromEmeilTextBox()
+        {
+            GetEmeilFromEmeilTextBoxEvent?.Invoke();
+            return CurrentUserEmeil;
+        }
+
         public void AddUserToDb(UserModel userModel)
         {
             _sqlHelper.AddUserToDb(userModel);
         }
+
+        public void UpdateRecognizedEmeilLabel(string text)
+        {
+            RecognizedEmeilLabelEvent?.Invoke(text);
+        }
+        public void UpdateRecognizedlastVisitLabel(string text)
+        {
+            RecognizedlastVisitLabelEvent?.Invoke(text);
+        }
+
+
     }
 }

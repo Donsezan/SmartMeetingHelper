@@ -19,11 +19,13 @@ namespace SmartMeetingHelper
             _mainController.ImageBoxFrameEvent += imageBoxFrameHandler;
             _mainController.TrainedImageBoxEvent += TrainedImageBoxHandler;
             _mainController.GetNameFromTextBoxEvent += GetNameFromTextBoxHandler;
+            _mainController.RecognizedEmeilLabelEvent += RecognizedEmeilLabelHandler;
+            _mainController.RecognizedlastVisitLabelEvent += RecognizedLastVisitLabelHandler;
         }
 
         private void button3_Click_1(object sender, EventArgs e)
         {
-            label6.Text = _mainController.ConnectUser();
+            NameTextBox.Text = _mainController.ConnectUser();
         }
 
         private void DetectAndRecognizeButton_Click(object sender, EventArgs e)
@@ -64,7 +66,24 @@ namespace SmartMeetingHelper
 
         public void GetNameFromTextBoxHandler()
         {
-            _mainController.CurrentName =  NameTextBox.Text;
+            _mainController.CurrentUserName =  NameTextBox.Text;
         }
+
+        public void GetEmeilFromEmeilTextBoxHeandler()
+        {
+            _mainController.CurrentUserEmeil = EmeilTextBox.Text;
+        }
+
+        public void RecognizedEmeilLabelHandler(string text)
+        {
+            RecognizetEmeilLabel.Text = text;
+        }
+
+        public void RecognizedLastVisitLabelHandler(string text)
+        {
+            recognizetlastVisitLable.Text = text;
+        }
+
+
     }
 }
