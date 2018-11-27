@@ -73,5 +73,36 @@ namespace SmartMeetingHelper.Helpers
                 return userModel;
             }
         }
+
+        public List<UserModel> GetAllDataFromDb()
+        {
+            var usersList = new List<UserModel>();
+            
+            using (SQLiteConnection connect = new SQLiteConnection("Data Source=" + DbName))
+            {
+                connect.Open();
+                using (SQLiteCommand fmd = connect.CreateCommand())
+                {
+                    fmd.CommandText = $@"select * from Users;";
+                    fmd.CommandType = CommandType.Text;
+                    SQLiteDataReader r = fmd.ExecuteReader();
+
+                    while (r.Read())
+                    {
+                        var userModel = new UserModel
+                        {
+                            Id = Convert.ToString(r["Id"]),
+                            Name = Convert.ToString(r["Name"]),
+                            PhotoId = Convert.ToString(r["PhotoId"]),
+                            Email = Convert.ToString(r["Email"]),
+                            LastVisit = Convert.ToString(r["LastVisit"])
+                        };
+                        usersList.Add(userModel);
+                    }
+                }
+                connect.Close();
+                return usersList;
+            }
+        }
     }
 }

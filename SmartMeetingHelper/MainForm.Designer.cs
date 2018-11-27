@@ -29,51 +29,51 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.button2 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.AddFaceButton = new System.Windows.Forms.Button();
+            this.NameTextBox = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.imageBox1 = new Emgu.CV.UI.ImageBox();
+            this.TrainedImageBox = new Emgu.CV.UI.ImageBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.PresentInTheSceneLabel = new System.Windows.Forms.Label();
+            this.RecognizedNameLabel = new System.Windows.Forms.Label();
+            this.AmountOfDetectedFaceLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.DetectAndRecognizeButton = new System.Windows.Forms.Button();
             this.imageBoxFrameGrabber = new Emgu.CV.UI.ImageBox();
             this.button3 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.imageBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TrainedImageBox)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imageBoxFrameGrabber)).BeginInit();
             this.SuspendLayout();
             // 
-            // button2
+            // AddFaceButton
             // 
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button2.Location = new System.Drawing.Point(87, 201);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(87, 31);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "2. Add face";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.AddFaceButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.AddFaceButton.Location = new System.Drawing.Point(87, 201);
+            this.AddFaceButton.Name = "AddFaceButton";
+            this.AddFaceButton.Size = new System.Drawing.Size(87, 31);
+            this.AddFaceButton.TabIndex = 3;
+            this.AddFaceButton.Text = "2. Add face";
+            this.AddFaceButton.UseVisualStyleBackColor = true;
+            this.AddFaceButton.Click += new System.EventHandler(this.AddFaceButton_Click);
             // 
-            // textBox1
+            // NameTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(67, 170);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(107, 20);
-            this.textBox1.TabIndex = 7;
-            this.textBox1.Text = "Sergio";
+            this.NameTextBox.Location = new System.Drawing.Point(67, 170);
+            this.NameTextBox.Name = "NameTextBox";
+            this.NameTextBox.Size = new System.Drawing.Size(107, 20);
+            this.NameTextBox.TabIndex = 7;
+            this.NameTextBox.Text = "Sergio";
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Controls.Add(this.imageBox1);
-            this.groupBox1.Controls.Add(this.button2);
+            this.groupBox1.Controls.Add(this.NameTextBox);
+            this.groupBox1.Controls.Add(this.TrainedImageBox);
+            this.groupBox1.Controls.Add(this.AddFaceButton);
             this.groupBox1.Location = new System.Drawing.Point(342, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(184, 242);
@@ -90,22 +90,22 @@
             this.label1.TabIndex = 8;
             this.label1.Text = "Name: ";
             // 
-            // imageBox1
+            // TrainedImageBox
             // 
-            this.imageBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.imageBox1.Location = new System.Drawing.Point(11, 18);
-            this.imageBox1.Name = "imageBox1";
-            this.imageBox1.Size = new System.Drawing.Size(163, 134);
-            this.imageBox1.TabIndex = 5;
-            this.imageBox1.TabStop = false;
+            this.TrainedImageBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.TrainedImageBox.Location = new System.Drawing.Point(11, 18);
+            this.TrainedImageBox.Name = "TrainedImageBox";
+            this.TrainedImageBox.Size = new System.Drawing.Size(163, 134);
+            this.TrainedImageBox.TabIndex = 5;
+            this.TrainedImageBox.TabStop = false;
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.PresentInTheSceneLabel);
+            this.groupBox2.Controls.Add(this.RecognizedNameLabel);
+            this.groupBox2.Controls.Add(this.AmountOfDetectedFaceLabel);
             this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.button1);
+            this.groupBox2.Controls.Add(this.DetectAndRecognizeButton);
             this.groupBox2.Location = new System.Drawing.Point(532, 12);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(209, 242);
@@ -113,38 +113,38 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Results: ";
             // 
-            // label5
+            // PresentInTheSceneLabel
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(9, 23);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(197, 15);
-            this.label5.TabIndex = 17;
-            this.label5.Text = "Persons present in the scene:";
+            this.PresentInTheSceneLabel.AutoSize = true;
+            this.PresentInTheSceneLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PresentInTheSceneLabel.ForeColor = System.Drawing.Color.Black;
+            this.PresentInTheSceneLabel.Location = new System.Drawing.Point(9, 23);
+            this.PresentInTheSceneLabel.Name = "PresentInTheSceneLabel";
+            this.PresentInTheSceneLabel.Size = new System.Drawing.Size(197, 15);
+            this.PresentInTheSceneLabel.TabIndex = 17;
+            this.PresentInTheSceneLabel.Text = "Persons present in the scene:";
             // 
-            // label4
+            // RecognizedNameLabel
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.Blue;
-            this.label4.Location = new System.Drawing.Point(9, 53);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(61, 19);
-            this.label4.TabIndex = 16;
-            this.label4.Text = "Nobody";
+            this.RecognizedNameLabel.AutoSize = true;
+            this.RecognizedNameLabel.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RecognizedNameLabel.ForeColor = System.Drawing.Color.Blue;
+            this.RecognizedNameLabel.Location = new System.Drawing.Point(9, 53);
+            this.RecognizedNameLabel.Name = "RecognizedNameLabel";
+            this.RecognizedNameLabel.Size = new System.Drawing.Size(61, 19);
+            this.RecognizedNameLabel.TabIndex = 16;
+            this.RecognizedNameLabel.Text = "Nobody";
             // 
-            // label3
+            // AmountOfDetectedFaceLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Red;
-            this.label3.Location = new System.Drawing.Point(163, 124);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(16, 16);
-            this.label3.TabIndex = 15;
-            this.label3.Text = "0";
+            this.AmountOfDetectedFaceLabel.AutoSize = true;
+            this.AmountOfDetectedFaceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AmountOfDetectedFaceLabel.ForeColor = System.Drawing.Color.Red;
+            this.AmountOfDetectedFaceLabel.Location = new System.Drawing.Point(163, 124);
+            this.AmountOfDetectedFaceLabel.Name = "AmountOfDetectedFaceLabel";
+            this.AmountOfDetectedFaceLabel.Size = new System.Drawing.Size(16, 16);
+            this.AmountOfDetectedFaceLabel.TabIndex = 15;
+            this.AmountOfDetectedFaceLabel.Text = "0";
             // 
             // label2
             // 
@@ -156,16 +156,16 @@
             this.label2.TabIndex = 14;
             this.label2.Text = "Number of faces detected: ";
             // 
-            // button1
+            // DetectAndRecognizeButton
             // 
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button1.Location = new System.Drawing.Point(84, 179);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(110, 53);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "1. Detect and recognize";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.DetectAndRecognizeButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.DetectAndRecognizeButton.Location = new System.Drawing.Point(84, 179);
+            this.DetectAndRecognizeButton.Name = "DetectAndRecognizeButton";
+            this.DetectAndRecognizeButton.Size = new System.Drawing.Size(110, 53);
+            this.DetectAndRecognizeButton.TabIndex = 2;
+            this.DetectAndRecognizeButton.Text = "1. Detect and recognize";
+            this.DetectAndRecognizeButton.UseVisualStyleBackColor = true;
+            this.DetectAndRecognizeButton.Click += new System.EventHandler(this.DetectAndRecognizeButton_Click);
             // 
             // imageBoxFrameGrabber
             // 
@@ -209,7 +209,7 @@
             this.Text = "SmartMeetingHelper";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.imageBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TrainedImageBox)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imageBoxFrameGrabber)).EndInit();
@@ -220,18 +220,18 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button AddFaceButton;
         private Emgu.CV.UI.ImageBox imageBoxFrameGrabber;
-        private Emgu.CV.UI.ImageBox imageBox1;
-        private System.Windows.Forms.TextBox textBox1;
+        private Emgu.CV.UI.ImageBox TrainedImageBox;
+        private System.Windows.Forms.TextBox NameTextBox;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label PresentInTheSceneLabel;
+        private System.Windows.Forms.Label RecognizedNameLabel;
+        private System.Windows.Forms.Label AmountOfDetectedFaceLabel;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button DetectAndRecognizeButton;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label6;
     }

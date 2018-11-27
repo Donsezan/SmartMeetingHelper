@@ -6,16 +6,15 @@ using Microsoft.Graph;
 
 namespace SmartMeetingHelper.Logic
 {
-    public class CalendarHelper
+    public class Calendar
     {
-
         public static async Task<bool> SendReplyAllMessageAsync(string body, string subject, bool? isOrganizer)
         {
             bool emailSent = false;
 
             try
             {
-                GraphServiceClient graphClient = AuthenticationHelper.GetAuthenticatedClient();
+                GraphServiceClient graphClient = Authentication.GetAuthenticatedClient();
                 // Get meeting message from user's Sent Items folder or Inbox
                 IMailFolderMessagesCollectionPage eventMessages;
 
@@ -64,7 +63,7 @@ namespace SmartMeetingHelper.Logic
 
             try
             {
-                GraphServiceClient graphClient = AuthenticationHelper.GetAuthenticatedClient();
+                GraphServiceClient graphClient = Authentication.GetAuthenticatedClient();
                 string localTimeZone = TimeZoneInfo.Local.Id;
 
                 List<Option> options = new List<Option>();

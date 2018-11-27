@@ -7,9 +7,8 @@ namespace SmartMeetingHelper
 {
     public class FileHelper
     {
-        public void copyFiles()
+        public void CopyFiles()
         {
-
             TryWriteByteFile("opencv_contrib220.dll", Resources.opencv_contrib220);
             TryWriteByteFile("opencv_core220.dll", Resources.opencv_core220);
             TryWriteByteFile("opencv_features2d220.dll", Resources.opencv_features2d220);

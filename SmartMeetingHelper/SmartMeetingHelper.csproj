@@ -118,8 +118,8 @@
     <Compile Include="EigenObjectRecognizer.cs" />
     <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Helpers\SqlHelper.cs" />
-    <Compile Include="Logic\AuthenticationHelper.cs" />
-    <Compile Include="Logic\CalendarHelper.cs" />
+    <Compile Include="Logic\Authentication.cs" />
+    <Compile Include="Logic\Calendar.cs" />
     <Compile Include="Logic\FaceRecognition.cs" />
     <Compile Include="MainController.cs" />
     <Compile Include="MainForm.cs">

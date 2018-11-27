@@ -7,7 +7,7 @@ using Microsoft.Identity.Client;
 
 namespace SmartMeetingHelper.Logic
 {
-    public class AuthenticationHelper
+    public class Authentication
     {
         // The Client ID is used by the application to uniquely identify itself to the v2.0 authentication endpoint.
         static string clientId = "c0428edb-1d21-48a2-9225-977869f008ee";
