@@ -11,7 +11,7 @@ namespace SmartMeetingHelper
     public class MainController
     {
         public Capture Grabber;
-        private readonly FileHelper _fileHelper = new FileHelper();
+        //private readonly FileHelper _fileHelper = new FileHelper();
         private readonly SqlHelper _sqlHelper = new SqlHelper();
         private FaceRecognition _faceRecognition;
         public delegate void TextDelegate(string message);
@@ -25,27 +25,17 @@ namespace SmartMeetingHelper
         public string CurrentName;
         public List<UserModel> UserModelsList = new List<UserModel>();
 
-
-
         public void InitParams()
         {
+            FileHelper.CreateFolderTrainedFaces();
+            FileHelper.CopyFiles();
+
             _faceRecognition = new FaceRecognition(this);
-            _fileHelper.CreateFolderTrainedFaces();
-            _fileHelper.CopyFiles();
-
-            var user = new UserModel
+            if (!FileHelper.CheckIfDbExist())
             {
-                Id = Guid.NewGuid().ToString(),
-                Name = "Nik",
-                Email = "tue@et.rr",
-                PhotoId = "q113wf.jpg",
-                LastVisit = "21.23.55"
-            };
-            _sqlHelper.CreateBase();
-            _sqlHelper.AddUserToDb(user);
-            //var userLoad = _sqlHelper.FoundInDbModel(user.Id);
+                _sqlHelper.CreateBase();
+            }
             UserModelsList = _sqlHelper.GetAllDataFromDb();
-
             _faceRecognition.LoadFaces();
         }
 
@@ -87,12 +77,14 @@ namespace SmartMeetingHelper
         {
             _faceRecognition.AddFace();
         }
-
-
         public string GetNameFromTextBox()
         {
             GetNameFromTextBoxEvent?.Invoke();
             return CurrentName;
+        }
+        public void AddUserToDb(UserModel userModel)
+        {
+            _sqlHelper.AddUserToDb(userModel);
         }
     }
 }

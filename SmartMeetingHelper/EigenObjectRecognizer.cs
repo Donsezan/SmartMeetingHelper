@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Emgu.CV.Structure;
+using SmartMeetingHelper.Models;
 
 namespace Emgu.CV
 {
@@ -13,7 +15,7 @@ namespace Emgu.CV
       private Image<Gray, Single>[] _eigenImages;
       private Image<Gray, Single> _avgImage;
       private Matrix<float>[] _eigenValues;
-      private string[] _labels;
+      private List<UserModel> _userModels;
       private double _eigenDistanceThreshold;
 
       /// <summary>
@@ -29,10 +31,10 @@ namespace Emgu.CV
       /// <summary>
       /// Get or set the labels for the corresponding training image
       /// </summary>
-      public String[] Labels
-      {
-         get { return _labels; }
-         set { _labels = value; }
+      public List<UserModel> UserModels
+        {
+         get { return _userModels; }
+         set { _userModels = value; }
       }
 
       /// <summary>
@@ -76,18 +78,18 @@ namespace Emgu.CV
       /// </summary>
       /// <param name="images">The images used for training, each of them should be the same size. It's recommended the images are histogram normalized</param>
       /// <param name="termCrit">The criteria for recognizer training</param>
-      public EigenObjectRecognizer(Image<Gray, Byte>[] images, ref MCvTermCriteria termCrit)
-         : this(images, GenerateLabels(images.Length), ref termCrit)
-      {
-      }
+      //////////////////////////////public EigenObjectRecognizer(Image<Gray, Byte>[] images, ref MCvTermCriteria termCrit)
+      //////////////////////////////   : this(images, GenerateLabels(images.Length), ref termCrit)
+      //////////////////////////////{
+      //////////////////////////////}
 
-      private static String[] GenerateLabels(int size)
-      {
-         String[] labels = new string[size];
-         for (int i = 0; i < size; i++)
-            labels[i] = i.ToString();
-         return labels;
-      }
+      //////////////////////////////private static String[] GenerateLabels(int size)
+      //////////////////////////////{
+      //////////////////////////////   String[] labels = new string[size];
+      //////////////////////////////   for (int i = 0; i < size; i++)
+      //////////////////////////////      labels[i] = i.ToString();
+      //////////////////////////////   return labels;
+      //////////////////////////////}
 
       /// <summary>
       /// Create an object recognizer using the specific tranning data and parameters, it will always return the most similar object
@@ -95,8 +97,8 @@ namespace Emgu.CV
       /// <param name="images">The images used for training, each of them should be the same size. It's recommended the images are histogram normalized</param>
       /// <param name="labels">The labels corresponding to the images</param>
       /// <param name="termCrit">The criteria for recognizer training</param>
-      public EigenObjectRecognizer(Image<Gray, Byte>[] images, String[] labels, ref MCvTermCriteria termCrit)
-         : this(images, labels, 0, ref termCrit)
+      public EigenObjectRecognizer(Image<Gray, Byte>[] images, List<UserModel> userModels, ref MCvTermCriteria termCrit)
+         : this(images, userModels, 0, ref termCrit)
       {
       }
 
@@ -111,9 +113,9 @@ namespace Emgu.CV
       /// If the threshold is &lt; 0, the recognizer will always treated the examined image as one of the known object. 
       /// </param>
       /// <param name="termCrit">The criteria for recognizer training</param>
-      public EigenObjectRecognizer(Image<Gray, Byte>[] images, String[] labels, double eigenDistanceThreshold, ref MCvTermCriteria termCrit)
+      public EigenObjectRecognizer(Image<Gray, Byte>[] images, List<UserModel> userModels, double eigenDistanceThreshold, ref MCvTermCriteria termCrit)
       {
-         Debug.Assert(images.Length == labels.Length, "The number of images should equals the number of labels");
+         Debug.Assert(images.Length == userModels.Count, "The number of images should equals the number of labels");
          Debug.Assert(eigenDistanceThreshold >= 0.0, "Eigen-distance threshold should always >= 0.0");
 
          CalcEigenObjects(images, ref termCrit, out _eigenImages, out _avgImage);
@@ -132,7 +134,7 @@ namespace Emgu.CV
                 return new Matrix<float>(EigenDecomposite(img, _eigenImages, _avgImage));
              });
 
-         _labels = labels;
+         _userModels = userModels;
 
          _eigenDistanceThreshold = eigenDistanceThreshold;
       }
@@ -228,7 +230,7 @@ namespace Emgu.CV
       /// <param name="index">The index of the most similar object</param>
       /// <param name="eigenDistance">The eigen distance of the most similar object</param>
       /// <param name="label">The label of the specific image</param>
-      public void FindMostSimilarObject(Image<Gray, Byte> image, out int index, out float eigenDistance, out String label)
+      public void FindMostSimilarObject(Image<Gray, Byte> image, out int index, out float eigenDistance, out UserModel user)
       {
          float[] dist = GetEigenDistances(image);
 
@@ -242,7 +244,7 @@ namespace Emgu.CV
                eigenDistance = dist[i];
             }
          }
-         label = Labels[index];
+         user = UserModels[index];
       }
 
       /// <summary>
@@ -253,14 +255,14 @@ namespace Emgu.CV
       /// String.Empty, if not recognized;
       /// Label of the corresponding image, otherwise
       /// </returns>
-      public String Recognize(Image<Gray, Byte> image)
+      public UserModel Recognize(Image<Gray, Byte> image)
       {
          int index;
          float eigenDistance;
-         String label;
-         FindMostSimilarObject(image, out index, out eigenDistance, out label);
+         UserModel user;
+         FindMostSimilarObject(image, out index, out eigenDistance, out user);
 
-         return (_eigenDistanceThreshold <= 0 || eigenDistance < _eigenDistanceThreshold )  ? _labels[index] : String.Empty;
+         return (_eigenDistanceThreshold <= 0 || eigenDistance < _eigenDistanceThreshold )  ? _userModels[index] : null;
       }
    }
 }

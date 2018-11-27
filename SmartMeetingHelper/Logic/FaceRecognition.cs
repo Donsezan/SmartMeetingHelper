@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
+using SmartMeetingHelper.Models;
 
 namespace SmartMeetingHelper.Logic
 {
@@ -15,18 +15,20 @@ namespace SmartMeetingHelper.Logic
         //Declararation of all variables, vectors and haarcascades
         public Image<Bgr, Byte> currentFrame;
        
-        public HaarCascade face;
+        private readonly HaarCascade _face;
         public HaarCascade eye;
         public Image<Gray, byte> result, TrainedFace = null;
         public Image<Gray, byte> gray = null;
         public List<Image<Gray, byte>> trainingImages = new List<Image<Gray, byte>>();
-        public List<string> labels = new List<string>();
+        //public List<string> labels = new List<string>();
         public List<string> NamePersons = new List<string>();
-        public int ContTrain, NumLabels, t;
+        public int ContTrain, t;
         public string name, names = null;
         public FaceRecognition(MainController mainController)
         {
             _mainController = mainController;
+            _face = new HaarCascade("haarcascade_frontalface_default.xml");
+            //ToDO Add Eye and Smile  
         }
 
         public void FrameGrabber()
@@ -46,7 +48,7 @@ namespace SmartMeetingHelper.Logic
 
             //Face Detector
             MCvAvgComp[][] facesDetected = gray.DetectHaarCascade(
-                face,
+                _face,
                 1.2,
                 10,
                 Emgu.CV.CvEnum.HAAR_DETECTION_TYPE.DO_CANNY_PRUNING,
@@ -71,11 +73,11 @@ namespace SmartMeetingHelper.Logic
                     //Eigen face recognizer
                     EigenObjectRecognizer recognizer = new EigenObjectRecognizer(
                         trainingImages.ToArray(),
-                        labels.ToArray(),
+                        _mainController.UserModelsList,
                         3000,
                         ref termCrit);
 
-                    name = recognizer.Recognize(result);
+                    name = recognizer.Recognize(result).Name;
 
                     //Draw the label for each face detected and recognized
 
@@ -143,7 +145,7 @@ namespace SmartMeetingHelper.Logic
 
                 //Face Detector
                 MCvAvgComp[][] facesDetected = gray.DetectHaarCascade(
-                    face,
+                    _face,
                 1.2,
                 10,
                 Emgu.CV.CvEnum.HAAR_DETECTION_TYPE.DO_CANNY_PRUNING,
@@ -160,23 +162,36 @@ namespace SmartMeetingHelper.Logic
                 //test image with cubic interpolation type method
                 TrainedFace = result.Resize(100, 100, Emgu.CV.CvEnum.INTER.CV_INTER_CUBIC);
                 trainingImages.Add(TrainedFace);
-                labels.Add(_mainController.GetNameFromTextBox());
-
                 //Show face added in gray scale
                 _mainController.UpdateTrainedImageBox(TrainedFace);
-             
 
-                //Write the number of triained faces in a file text for further load
-                File.WriteAllText(Application.StartupPath + "/TrainedFaces/TrainedLabels.txt", trainingImages.ToArray().Length.ToString() + "%");
 
-                //Write the labels of triained faces in a file text for further load
-                for (int i = 1; i < trainingImages.ToArray().Length + 1; i++)
+                var user = new UserModel
                 {
-                    trainingImages.ToArray()[i - 1].Save(Application.StartupPath + "/TrainedFaces/face" + i + ".bmp");
-                    File.AppendAllText(Application.StartupPath + "/TrainedFaces/TrainedLabels.txt", labels.ToArray()[i - 1] + "%");
-                }
+                    Id = Guid.NewGuid().ToString(),
+                    Name = _mainController.GetNameFromTextBox(),
+                    Email = "Test@test.com",
+                    LastVisit = DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss")
+                };
+                var photoName = user.Id + ".bmp";
+                trainingImages.ToArray()[0].Save(Application.StartupPath + "/TrainedFaces/"+ photoName);
+                user.PhotoId = photoName;
+
+                ////Write the number of triained faces in a file text for further load
+                //File.WriteAllText(Application.StartupPath + "/TrainedFaces/TrainedLabels.txt", trainingImages.ToArray().Length.ToString() + "%");
+
+                ////Write the labels of triained faces in a file text for further load
+                //for (int i = 1; i < trainingImages.ToArray().Length + 1; i++)
+                //{
+                //    trainingImages.ToArray()[i - 1].Save(Application.StartupPath + "/TrainedFaces/face" + i + ".bmp");
+                //    File.AppendAllText(Application.StartupPath + "/TrainedFaces/TrainedLabels.txt", labels.ToArray()[i - 1] + "%");
+                //}
 
                 MessageBox.Show(_mainController.GetNameFromTextBox() + "´s face detected and added :)", "Training OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                _mainController.UserModelsList.Add(user);
+                _mainController.AddUserToDb(user);
+
             }
             catch
             {
@@ -186,39 +201,23 @@ namespace SmartMeetingHelper.Logic
 
         public void LoadFaces()
         {
-            //Load haarcascades for face detection
-            face = new HaarCascade("haarcascade_frontalface_default.xml");
-            //eye = new HaarCascade("haarcascade_eye.xml");
             try
             {
-                //Load of previus trainned faces and labels for each image
-                string Labelsinfo = File.ReadAllText(Application.StartupPath + "/TrainedFaces/TrainedLabels.txt");
-                string[] Labels = Labelsinfo.Split('%');
-                NumLabels = Convert.ToInt16(Labels[0]);
-                ContTrain = NumLabels;
-                string LoadFaces;
-
-                for (int tf = 1; tf < NumLabels + 1; tf++)
-                {
-                    LoadFaces = "face" + tf + ".bmp";
-                    trainingImages.Add(new Image<Gray, byte>(Application.StartupPath + "/TrainedFaces/" + LoadFaces));
-                    labels.Add(Labels[tf]);
-                }
-
+                ////Load of previus trainned faces and labels for each image
                 foreach (var userModel in _mainController.UserModelsList)
                 {
-
+                    var photoPath = Application.StartupPath + "/TrainedFaces/" + userModel.PhotoId;
+                    if (FileHelper.CheckIfFileExist(photoPath))
+                    {
+                        trainingImages.Add(new Image<Gray, byte>(photoPath));
+                        ContTrain++;
+                    }
                 }
-
-
-
-
-
             }
             catch (Exception e)
             {
                 //MessageBox.Show(e.ToString());
-                MessageBox.Show("Nothing in binary database, please add at least a face(Simply train the prototype with the Add Face Button).", "Triained faces load", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(@"Nothing in database, please add at least a face(Simply train the prototype with the Add Face Button).", @"Trained faces load", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
     }

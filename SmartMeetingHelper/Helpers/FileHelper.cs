@@ -5,9 +5,9 @@ using SmartMeetingHelper.Properties;
 
 namespace SmartMeetingHelper
 {
-    public class FileHelper
+    public static class FileHelper
     {
-        public void CopyFiles()
+        public static void CopyFiles()
         {
             TryWriteByteFile("opencv_contrib220.dll", Resources.opencv_contrib220);
             TryWriteByteFile("opencv_core220.dll", Resources.opencv_core220);
@@ -30,7 +30,7 @@ namespace SmartMeetingHelper
             TryWriteStringFile("haarcascade_frontalface_default.xml", Resources.haarcascade_frontalface_default);
         }
 
-        private void TryWriteByteFile(string name,byte[] resource)
+        private static void TryWriteByteFile(string name,byte[] resource)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace SmartMeetingHelper
                
             }
         }
-        private void TryWriteStringFile(string name, string resource)
+        private static void TryWriteStringFile(string name, string resource)
         {
             try
             {
@@ -55,13 +55,22 @@ namespace SmartMeetingHelper
             }
         }
 
-        public void CreateFolderTrainedFaces()
+        public static void CreateFolderTrainedFaces()
         {
             const string folderName = "TrainedFaces";
             if (!Directory.Exists(folderName))
             {
                 Directory.CreateDirectory(folderName);
             }
+        }
+
+        public static bool CheckIfDbExist()
+        {
+            return File.Exists(Settings.DbName);
+        }
+        public static bool CheckIfFileExist(string file)
+        {
+            return File.Exists(file);
         }
     }
 }

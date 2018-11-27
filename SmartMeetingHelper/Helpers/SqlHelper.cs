@@ -9,19 +9,18 @@ namespace SmartMeetingHelper.Helpers
 {
     public class SqlHelper
     {
-        private const string DbName = "UserDB.db3";
-        private const string TableName = "Users";
+       
 
         public void CreateBase()
         {
-            SQLiteConnection.CreateFile(DbName);
-            using (SQLiteConnection connect = new SQLiteConnection("Data Source=" + DbName))
+            SQLiteConnection.CreateFile(Settings.DbName);
+            using (SQLiteConnection connect = new SQLiteConnection("Data Source=" + Settings.DbName))
             {
                 connect.Open();
 
                 using (SQLiteCommand command = new SQLiteCommand(connect))
                 {
-                    command.CommandText = $@"CREATE TABLE [{TableName}] (
+                    command.CommandText = $@"CREATE TABLE [{Settings.TableName}] (
                     [Id] char(100) PRIMARY KEY NOT NULL,
                     [Name] char(100) NOT NULL,
                     [PhotoId] char(100) NOT NULL,
@@ -37,7 +36,7 @@ namespace SmartMeetingHelper.Helpers
 
         public bool AddUserToDb(UserModel userModel)
         {
-            using (SQLiteConnection connect = new SQLiteConnection("Data Source=" + DbName))
+            using (SQLiteConnection connect = new SQLiteConnection("Data Source=" + Settings.DbName))
             {
                 connect.Open();
                 var sql =
@@ -52,7 +51,7 @@ namespace SmartMeetingHelper.Helpers
         public UserModel FoundInDbModel(string id)
         {
             var userModel = new UserModel();
-            using (SQLiteConnection connect = new SQLiteConnection("Data Source=" + DbName))
+            using (SQLiteConnection connect = new SQLiteConnection("Data Source=" + Settings.DbName))
             {
                 connect.Open();
                 using (SQLiteCommand fmd = connect.CreateCommand())
@@ -78,7 +77,7 @@ namespace SmartMeetingHelper.Helpers
         {
             var usersList = new List<UserModel>();
             
-            using (SQLiteConnection connect = new SQLiteConnection("Data Source=" + DbName))
+            using (SQLiteConnection connect = new SQLiteConnection("Data Source=" + Settings.DbName))
             {
                 connect.Open();
                 using (SQLiteCommand fmd = connect.CreateCommand())
