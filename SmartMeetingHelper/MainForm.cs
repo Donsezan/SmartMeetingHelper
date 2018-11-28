@@ -19,6 +19,7 @@ namespace SmartMeetingHelper
             _mainController.ImageBoxFrameEvent += imageBoxFrameHandler;
             _mainController.TrainedImageBoxEvent += TrainedImageBoxHandler;
             _mainController.GetNameFromTextBoxEvent += GetNameFromTextBoxHandler;
+            _mainController.GetEmeilFromEmeilTextBoxEvent += GetEmeilFromEmeilTextBoxHeandler;
             _mainController.RecognizedEmeilLabelEvent += RecognizedEmeilLabelHandler;
             _mainController.RecognizedlastVisitLabelEvent += RecognizedLastVisitLabelHandler;
         }
