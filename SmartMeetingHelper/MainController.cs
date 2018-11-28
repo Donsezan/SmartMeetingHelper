@@ -5,24 +5,23 @@ using Emgu.CV.Structure;
 using SmartMeetingHelper.Helpers;
 using SmartMeetingHelper.Logic;
 using SmartMeetingHelper.Models;
+using Calendar = SmartMeetingHelper.Logic.Calendar;
 
 namespace SmartMeetingHelper
 {
     public class MainController
     {
         public Capture Grabber;
-        //private readonly FileHelper _fileHelper = new FileHelper();
         private readonly SqlHelper _sqlHelper = new SqlHelper();
         private FaceRecognition _faceRecognition;
         public delegate void TextDelegate(string message);
+        public delegate void UserDelegate(UserModel userModel);
         public delegate void ImageBgrBoxFrameDelegate(Image<Bgr, byte> image);
         public delegate void ImageGrayBoxFrameDelegate(Image<Gray, byte> image);
         public event TextDelegate AmountOfDetectedFaceLabelEvent;
-        public event TextDelegate RecognizedNameLabelEvent;
         public event ImageBgrBoxFrameDelegate ImageBoxFrameEvent;
         public event ImageGrayBoxFrameDelegate TrainedImageBoxEvent;
-        public event TextDelegate RecognizedEmeilLabelEvent;
-        public event TextDelegate RecognizedlastVisitLabelEvent;
+        public event UserDelegate UpdateUserLablesEvent;
         public event Action GetEmeilFromEmeilTextBoxEvent;
         public event Action GetNameFromTextBoxEvent;
         public string CurrentUserName;
@@ -48,19 +47,23 @@ namespace SmartMeetingHelper
             var graphClient = Authentication.GetAuthenticatedClient();
             var currentUserObject = graphClient.Me.Request().GetAsync();
             currentUserObject.Wait();
+            //var startTime = DateTime.Now.ToString("o");
+            //var endTime = DateTime.Now.AddHours(20).ToString("o");
+            //var sd = Calendar.GetDayEventsAsync(startTime, endTime, "donsezan@outlook.com");
+            ////sd.Wait();donsezan@outlook.com
+            //var model = Calendar.GetEvent(sd.GetResult());
             return currentUserObject.Result.DisplayName;
+            
             //DisconnectButton.IsEnabled = true;
             //ConnectButton.IsEnabled = false;
 
         }
 
+       
+
         public void UpdateAmountOfDetectedFaceLabel(string text)
         {
             AmountOfDetectedFaceLabelEvent?.Invoke(text);
-        }
-        public void UpdateRecognizedNameLabel(string text)
-        {
-            RecognizedNameLabelEvent?.Invoke(text);
         }
 
         public void UpdateImageBoxFrame(Image<Bgr, byte> image)
@@ -97,16 +100,10 @@ namespace SmartMeetingHelper
         {
             _sqlHelper.AddUserToDb(userModel);
         }
-
-        public void UpdateRecognizedEmeilLabel(string text)
+        
+        public void UpdateUserInfo(UserModel user)
         {
-            RecognizedEmeilLabelEvent?.Invoke(text);
+            UpdateUserLablesEvent?.Invoke(user);
         }
-        public void UpdateRecognizedlastVisitLabel(string text)
-        {
-            RecognizedlastVisitLabelEvent?.Invoke(text);
-        }
-
-
     }
 }

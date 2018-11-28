@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.Graph;
+using SmartMeetingHelper.Models;
 
 namespace SmartMeetingHelper.Logic
 {
-    public class Calendar
+    public static class Calendar
     {
         public static async Task<bool> SendReplyAllMessageAsync(string body, string subject, bool? isOrganizer)
         {
@@ -57,7 +58,7 @@ namespace SmartMeetingHelper.Logic
 
 
 
-        public static async Task<IUserCalendarViewCollectionPage> GetDayEventsAsync(string startDateTime, string endDateTime)
+        public static async Task<IUserCalendarViewCollectionPage> GetDayEventsAsync(string startDateTime, string endDateTime, string emeil)
         {
             IUserCalendarViewCollectionPage events = null;
 
@@ -72,7 +73,7 @@ namespace SmartMeetingHelper.Logic
                 options.Add(new HeaderOption("Prefer", "outlook.timezone=\"" + localTimeZone + "\""));
 
                 //events = await graphClient.Me.CalendarView.Request(options).OrderBy("start/DateTime").GetAsync();
-                events = await graphClient.Users["donsezan@outlook.com"].CalendarView.Request(options).OrderBy("start/DateTime").GetAsync();
+                events = await graphClient.Users[emeil].CalendarView.Request(options).OrderBy("start/DateTime").GetAsync();
             }
 
             catch (ServiceException e)
@@ -83,5 +84,22 @@ namespace SmartMeetingHelper.Logic
 
             return events;
         }
+
+        public static CalendarEventModel GetEvent(IUserCalendarViewCollectionPage events)
+        {
+            if (events.Count > 0)
+            {
+                var eventModel = new CalendarEventModel
+                {
+                    Subject = events[0].Subject,
+                    MeetingTime = events[0].Start.DateTime.Substring(0, 16) + " - " +
+                                  events[0].End.DateTime.Substring(0, 16),
+                    Participants = events[0].Attendees
+                };
+                return eventModel;
+            }
+            return null;
+        }
+
     }
 }

@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using Emgu.CV;
 using Emgu.CV.Structure;
+using SmartMeetingHelper.Models;
 using Capture = Emgu.CV.Capture;
 
 namespace SmartMeetingHelper
@@ -15,13 +16,11 @@ namespace SmartMeetingHelper
             InitializeComponent();
             _mainController.InitParams();
             _mainController.AmountOfDetectedFaceLabelEvent += AmountOfDetectedFaceLabelHandler;
-            _mainController.RecognizedNameLabelEvent += RecognizedNameLabelHandler;
             _mainController.ImageBoxFrameEvent += imageBoxFrameHandler;
             _mainController.TrainedImageBoxEvent += TrainedImageBoxHandler;
             _mainController.GetNameFromTextBoxEvent += GetNameFromTextBoxHandler;
             _mainController.GetEmeilFromEmeilTextBoxEvent += GetEmeilFromEmeilTextBoxHeandler;
-            _mainController.RecognizedEmeilLabelEvent += RecognizedEmeilLabelHandler;
-            _mainController.RecognizedlastVisitLabelEvent += RecognizedLastVisitLabelHandler;
+            _mainController.UpdateUserLablesEvent += UpdateRecognizetUserLables;
         }
 
         private void button3_Click_1(object sender, EventArgs e)
@@ -49,11 +48,7 @@ namespace SmartMeetingHelper
         {
             AmountOfDetectedFaceLabel.Text = text;
         }
-
-        public void RecognizedNameLabelHandler(string text)
-        {
-            RecognizedNameLabel.Text = text;
-        }
+        
 
         public void imageBoxFrameHandler(Image<Bgr, byte> image)
         {
@@ -75,16 +70,11 @@ namespace SmartMeetingHelper
             _mainController.CurrentUserEmeil = EmeilTextBox.Text;
         }
 
-        public void RecognizedEmeilLabelHandler(string text)
+        public void UpdateRecognizetUserLables(UserModel userModel)
         {
-            RecognizetEmeilLabel.Text = text;
+            RecognizedNameLabel.Text = userModel.Name;
+            RecognizetEmeilLabel.Text = userModel.Email;
+            recognizetlastVisitLable.Text = userModel.LastVisit;
         }
-
-        public void RecognizedLastVisitLabelHandler(string text)
-        {
-            recognizetlastVisitLable.Text = text;
-        }
-
-
     }
 }

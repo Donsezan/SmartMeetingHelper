@@ -123,23 +123,21 @@ namespace SmartMeetingHelper.Logic
             //Show the faces procesed and recognized
             _mainController.UpdateImageBoxFrame( CurrentFrame);
             //label4.Text = _mainController.names;
-            if (_recognizetUser != null)
+            if (_recognizetUser == null)
             {
-                _mainController.UpdateRecognizedNameLabel(_recognizetUser.Name);
-                _mainController.UpdateRecognizedEmeilLabel(_recognizetUser.Email);
-                _mainController.UpdateRecognizedlastVisitLabel(_recognizetUser.LastVisit);
-                _recognizetUser = null;
+                _recognizetUser = new UserModel
+                {
+                    Name = "---",
+                    Email = "---",
+                    LastVisit = "---",
+                };
             }
-            else
-            {
-                _mainController.UpdateRecognizedNameLabel("---");
-                _mainController.UpdateRecognizedEmeilLabel("---");
-                _mainController.UpdateRecognizedlastVisitLabel("---");
-            }
+            _mainController.UpdateUserInfo(_recognizetUser);
+            _recognizetUser = null;
             //  names = "";
             //Clear the list(vector) of names
             //NamePersons.Clear();
-           
+
 
         }
 
