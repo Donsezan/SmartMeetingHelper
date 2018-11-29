@@ -55,9 +55,7 @@ namespace SmartMeetingHelper.Logic
 
             return emailSent;
         }
-
-
-
+        
         public static async Task<IUserCalendarViewCollectionPage> GetDayEventsAsync(string startDateTime, string endDateTime, string emeil)
         {
             IUserCalendarViewCollectionPage events = null;
@@ -73,7 +71,7 @@ namespace SmartMeetingHelper.Logic
                 options.Add(new HeaderOption("Prefer", "outlook.timezone=\"" + localTimeZone + "\""));
 
                 //events = await graphClient.Me.CalendarView.Request(options).OrderBy("start/DateTime").GetAsync();
-                events = await graphClient.Users[emeil].CalendarView.Request(options).OrderBy("start/DateTime").GetAsync();
+                return await graphClient.Users[emeil].CalendarView.Request(options).OrderBy("start/DateTime").GetAsync();
             }
 
             catch (ServiceException e)
@@ -81,8 +79,6 @@ namespace SmartMeetingHelper.Logic
                 Debug.WriteLine("Get events failed: " + e.Error.Message);
                 return null;
             }
-
-            return events;
         }
 
         public static CalendarEventModel GetEvent(IUserCalendarViewCollectionPage events)
@@ -100,6 +96,13 @@ namespace SmartMeetingHelper.Logic
             }
             return null;
         }
-
+        public static async Task<CalendarEventModel> GetUserCalendar(string email)
+        {
+            var startTime = DateTime.Now.ToString("s");
+            var endTime = DateTime.Now.AddDays(1).AddTicks(-1).ToString("s");
+            var sd = await Calendar.GetDayEventsAsync(startTime, endTime, email);
+            var model = Calendar.GetEvent(sd);
+            return model;
+        }
     }
 }

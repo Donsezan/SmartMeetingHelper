@@ -46,10 +46,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.DetectAndRecognizeButton = new System.Windows.Forms.Button();
             this.imageBoxFrameGrabber = new Emgu.CV.UI.ImageBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.SubjectLabel = new System.Windows.Forms.Label();
+            this.SheduledTimeLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TrainedImageBox)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imageBoxFrameGrabber)).BeginInit();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // AddFaceButton
@@ -140,7 +144,7 @@
             this.groupBox2.Controls.Add(this.RecognizedNameLabel);
             this.groupBox2.Location = new System.Drawing.Point(488, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(253, 247);
+            this.groupBox2.Size = new System.Drawing.Size(264, 144);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Results: ";
@@ -217,7 +221,7 @@
             this.DetectAndRecognizeButton.Name = "DetectAndRecognizeButton";
             this.DetectAndRecognizeButton.Size = new System.Drawing.Size(98, 31);
             this.DetectAndRecognizeButton.TabIndex = 2;
-            this.DetectAndRecognizeButton.Text = "1. Detect and recognize";
+            this.DetectAndRecognizeButton.Text = "Detect and recognize";
             this.DetectAndRecognizeButton.UseVisualStyleBackColor = true;
             this.DetectAndRecognizeButton.Click += new System.EventHandler(this.DetectAndRecognizeButton_Click);
             // 
@@ -230,11 +234,45 @@
             this.imageBoxFrameGrabber.TabIndex = 4;
             this.imageBoxFrameGrabber.TabStop = false;
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.SheduledTimeLabel);
+            this.groupBox3.Controls.Add(this.SubjectLabel);
+            this.groupBox3.Location = new System.Drawing.Point(488, 160);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(264, 100);
+            this.groupBox3.TabIndex = 20;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Your next Meeting";
+            // 
+            // SubjectLabel
+            // 
+            this.SubjectLabel.AutoSize = true;
+            this.SubjectLabel.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SubjectLabel.ForeColor = System.Drawing.Color.Blue;
+            this.SubjectLabel.Location = new System.Drawing.Point(8, 25);
+            this.SubjectLabel.Name = "SubjectLabel";
+            this.SubjectLabel.Size = new System.Drawing.Size(58, 19);
+            this.SubjectLabel.TabIndex = 21;
+            this.SubjectLabel.Text = "Subject";
+            // 
+            // SheduledTimeLabel
+            // 
+            this.SheduledTimeLabel.AutoSize = true;
+            this.SheduledTimeLabel.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SheduledTimeLabel.ForeColor = System.Drawing.Color.Blue;
+            this.SheduledTimeLabel.Location = new System.Drawing.Point(9, 62);
+            this.SheduledTimeLabel.Name = "SheduledTimeLabel";
+            this.SheduledTimeLabel.Size = new System.Drawing.Size(115, 19);
+            this.SheduledTimeLabel.TabIndex = 22;
+            this.SheduledTimeLabel.Text = "Scheduled Time";
+            // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(750, 262);
+            this.ClientSize = new System.Drawing.Size(764, 262);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.AmountOfDetectedFaceLabel);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.DetectAndRecognizeButton);
@@ -249,6 +287,8 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imageBoxFrameGrabber)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -273,6 +313,9 @@
         private System.Windows.Forms.Label EmeilLabel;
         private System.Windows.Forms.Label recognizetlastVisitLable;
         private System.Windows.Forms.Label RecognizetEmeilLabel;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label SheduledTimeLabel;
+        private System.Windows.Forms.Label SubjectLabel;
     }
 }
 

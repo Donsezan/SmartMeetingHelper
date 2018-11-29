@@ -19,13 +19,14 @@ namespace SmartMeetingHelper
             _mainController.ImageBoxFrameEvent += imageBoxFrameHandler;
             _mainController.TrainedImageBoxEvent += TrainedImageBoxHandler;
             _mainController.GetNameFromTextBoxEvent += GetNameFromTextBoxHandler;
-            _mainController.GetEmeilFromEmeilTextBoxEvent += GetEmeilFromEmeilTextBoxHeandler;
-            _mainController.UpdateUserLablesEvent += UpdateRecognizetUserLables;
+            _mainController.GetEmailFromEmailTextBoxEvent += GetEmailFromEmailTextBoxHandler;
+            _mainController.UpdateUserLabelsEvent += UpdateRecognizedUserLabelsHandler;
+            _mainController.UpdateEmailSectionLabelsEvent += UpdateEmailSectionLabelsHandler;
         }
 
-        private void button3_Click_1(object sender, EventArgs e)
+        private async void button3_Click_1(object sender, EventArgs e)
         {
-            NameTextBox.Text = _mainController.ConnectUser();
+            NameTextBox.Text = await _mainController.ConnectUser();
         }
 
         private void DetectAndRecognizeButton_Click(object sender, EventArgs e)
@@ -65,16 +66,22 @@ namespace SmartMeetingHelper
             _mainController.CurrentUserName =  NameTextBox.Text;
         }
 
-        public void GetEmeilFromEmeilTextBoxHeandler()
+        public void GetEmailFromEmailTextBoxHandler()
         {
-            _mainController.CurrentUserEmeil = EmeilTextBox.Text;
+            _mainController.CurrentUserEmail = EmeilTextBox.Text;
         }
 
-        public void UpdateRecognizetUserLables(UserModel userModel)
+        public void UpdateRecognizedUserLabelsHandler(UserModel userModel)
         {
             RecognizedNameLabel.Text = userModel.Name;
             RecognizetEmeilLabel.Text = userModel.Email;
             recognizetlastVisitLable.Text = userModel.LastVisit;
+        }
+
+        public void UpdateEmailSectionLabelsHandler(CalendarEventModel calendarEvent)
+        {
+            SubjectLabel.Text = calendarEvent.Subject;
+            SheduledTimeLabel.Text = calendarEvent.MeetingTime;
         }
     }
 }
