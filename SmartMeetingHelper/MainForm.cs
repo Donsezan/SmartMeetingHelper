@@ -22,6 +22,7 @@ namespace SmartMeetingHelper
             _mainController.GetEmailFromEmailTextBoxEvent += GetEmailFromEmailTextBoxHandler;
             _mainController.UpdateUserLabelsEvent += UpdateRecognizedUserLabelsHandler;
             _mainController.UpdateEmailSectionLabelsEvent += UpdateEmailSectionLabelsHandler;
+            _mainController.TimeLeftCounterLabelEvent += TimeLeftCounterLabelHandler;
         }
 
         private async void button3_Click_1(object sender, EventArgs e)
@@ -82,6 +83,11 @@ namespace SmartMeetingHelper
         {
             SubjectLabel.Text = calendarEvent.Subject;
             SheduledTimeLabel.Text = calendarEvent.MeetingTime;
+        }
+
+        public void TimeLeftCounterLabelHandler(string text)
+        {
+            TimeLeftCounterLabel.Text = text;
         }
     }
 }

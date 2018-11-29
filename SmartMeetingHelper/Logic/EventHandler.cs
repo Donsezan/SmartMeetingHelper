@@ -19,6 +19,7 @@ namespace SmartMeetingHelper.Logic
         public delegate void ImageGrayBoxFrameDelegate(Image<Gray, byte> image);
 
         public event TextDelegate AmountOfDetectedFaceLabelEvent;
+        public event TextDelegate TimeLeftCounterLabelEvent;
         public event ImageBgrBoxFrameDelegate ImageBoxFrameEvent;
         public event ImageGrayBoxFrameDelegate TrainedImageBoxEvent;
         public event UserDelegate UpdateUserLabelsEvent;
@@ -39,6 +40,12 @@ namespace SmartMeetingHelper.Logic
             GetEmailFromEmailTextBoxEvent?.Invoke();
             return CurrentUserEmail;
         }
+
+        public void UpdateTimeLeftCounterLabel(string timeLeft)
+        {
+            TimeLeftCounterLabelEvent?.Invoke(timeLeft);
+        }
+
 
         public void UpdateAmountOfDetectedFaceLabel(string text)
         {
@@ -85,7 +92,11 @@ namespace SmartMeetingHelper.Logic
             }
         }
 
-
+        private readonly CalendarEventModel _resultStub = new CalendarEventModel
+        {
+            Subject = "---",
+            MeetingTime = "---"
+        };
 
         public async void UpdateUserInfo(UserModel user)
         {
@@ -95,7 +106,7 @@ namespace SmartMeetingHelper.Logic
             {
                 if (user?.Id != null)
                 {
-                    var result = new CalendarEventModel();
+                    CalendarEventModel result;
                     _requestEmail = true;
                     try
                     {
@@ -103,23 +114,43 @@ namespace SmartMeetingHelper.Logic
                     }
                     catch
                     {
-                        result.Subject = "---";
-                        result.MeetingTime = "---";
+                        result = _resultStub;
                     }
 
                     UpdateEmailSectionLabels(result);
+                    UpdateTimeLeftCounterLabel(GetleftTimeToevent(result.MeetingTime));
                     WaitFor();
                 }
             }
-
             UpdateUserLabelsEvent?.Invoke(user);
+            
         }
-
-        private async Task WaitFor()
+        
+        private async void WaitFor()
         {
-            await Task.Delay(3000);
+            await Task.Delay(5000);
             _requestEmail = false;
             _shouldLoadNewEmail = false;
+            UpdateEmailSectionLabels(_resultStub);
+            UpdateTimeLeftCounterLabel("---");
         }
+
+        private string GetleftTimeToevent(string eventTime)
+        {
+            try
+            {
+                var dateStr = eventTime.Split('-')[0];
+                dateStr = dateStr.Substring(0, dateStr.Length - 1);
+                var dateTime = DateTime.ParseExact(dateStr, "MM/dd/yyyy HH:mm", null, System.Globalization.DateTimeStyles.None);
+                var sd = dateTime.Subtract(DateTime.Now);
+                return sd.ToString().Split('.')[0];
+            }
+            catch (Exception e)
+            {
+                return "---";
+            }
+          
+        }
+
     }
 }
